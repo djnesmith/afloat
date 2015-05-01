@@ -6,3 +6,5 @@ Build
 build
 TemporaryItems
 .DS_Store
+*xcshareddata
+*xcuserdata

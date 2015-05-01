@@ -17,7 +17,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 #import "AfloatStorage.h"
 #import "AfloatPanelController.h"
 #import "AfloatBadgeController.h"
-#import "Afloat_AfloatNagging.h"
 #import "Afloat_AfloatScripting.h"
 
 #define kAfloatTranslucentAlphaValue (0.7f)
@@ -117,9 +116,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	if (index < [menu numberOfItems] && ![[menu itemAtIndex:index] isSeparatorItem])
 		[menu insertItem:[NSMenuItem separatorItem] atIndex:index];
 
-	[badge release];
 	
-	[_menuWithItems release]; _menuWithItems = nil;
+	 _menuWithItems = nil;
 	
 	// Set up swizzling sendEvents: in NSApplication --------------
 	
@@ -134,10 +132,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowDidBecomeMain:) name:NSWindowDidBecomeMainNotification object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowDidResignMain:) name:NSWindowDidResignMainNotification object:nil];
 	
-	// Nag, nag, nag, nag, nag, nag, nag, nag...
-	// delayed -- PS already slows down app launch enough.
-	//[self checkForNagOnInstall];
-	[self performSelector:@selector(checkForNagOnInstall) withObject:nil afterDelay:7.0];
 	
 	// Scripting support.
 	[self installScriptingSupport];
@@ -348,7 +342,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	L0Log(@"tracker = %@ view = %@", tracker, v);
 	
-	[tracker release];
 }
 
 - (void) endTrackingWindow:(NSWindow*) window {
